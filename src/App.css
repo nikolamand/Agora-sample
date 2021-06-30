@@ -188,14 +188,15 @@ body {
   display: block;
   margin-top: 36px;
   margin-right: 36px;
-  background-image: url("./assets/icon-exit-hover.png");
+  /* background-image: url("./assets/icon-exit-hover.png"); */
   background-size: 32px;
-  width: 32px;
-  height: 32px;
+  padding: 8px;
+  font-size: 24px;
   border-radius: 30px;
   z-index: 3;
   background-color: rgba(0, 0, 0, 0.4);
   cursor: pointer;
+  color: white;
 }
 
 .quit:hover {
@@ -275,17 +276,9 @@ body {
   opacity: 1;
 }
 
-.stop-screen-share {
-  background-image: url("./assets/icon-share.png");
-}
-
 .stop-screen-share:hover {
   background-color: #44a2fc;
   opacity: 1;
-}
-
-.start-screen-share {
-  background-image: url("./assets/icon-share.png");
 }
 
 .start-screen-share:hover {

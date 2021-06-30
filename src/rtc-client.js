@@ -10,7 +10,7 @@ console.log(
     '\nApp ID: \n' +
     appID +
     '\nApp TOKEN: \n' +
-    window.localStorage.getItem('Sample_App_TOKEN')
+    appTOKEN
 )
 export default class RTCClient {
   constructor () {

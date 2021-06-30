@@ -16,13 +16,14 @@ const useStyles = makeStyles({
     alignItems: 'center'
   },
   customBtn: {
-    width: '50px',
-    height: '50px',
     marginLeft: '20px',
     borderRadius: '26px',
+    fontSize: '24px',
+    padding: '8px',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     backgroundSize: '50px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    color: 'white'
   },
   leftAlign: {
     display: 'flex',
@@ -51,7 +52,7 @@ const MeetingPage = () => {
   const routerCtx = useRouter()
   const stateCtx = useGlobalState()
   const mutationCtx = useGlobalMutation()
-  
+
   const localClient = useMemo(() => {
     const client = new RTCClient()
     if (!client._created) {
@@ -208,7 +209,7 @@ const MeetingPage = () => {
           </div>
           <Tooltip title="quit">
             <div
-              className="quit"
+              className="quit fas fa-sign-out-alt"
               onClick={() => {
                 localClient.leave().then(() => {
                   mutationCtx.clearAllStream()
@@ -243,7 +244,8 @@ const MeetingPage = () => {
                       onClick={handleClick('video')}
                       className={clsx(
                         classes.customBtn,
-                        muteVideo ? 'mute-video' : 'unmute-video'
+                        'fas',
+                        muteVideo ? 'fa-video' : 'fa-video-slash'
                       )}
                     />
                   </Tooltip>
@@ -252,7 +254,8 @@ const MeetingPage = () => {
                       onClick={handleClick('audio')}
                       className={clsx(
                         classes.customBtn,
-                        muteAudio ? 'mute-audio' : 'unmute-audio'
+                        'fas',
+                        muteAudio ? 'fa-microphone' : 'fa-microphone-slash'
                       )}
                     />
                   </Tooltip>
@@ -261,6 +264,7 @@ const MeetingPage = () => {
                       onClick={handleClick('screen')}
                       className={clsx(
                         classes.customBtn,
+                        'fas fa-desktop',
                         stateCtx.screen
                           ? 'start-screen-share'
                           : 'stop-screen-share'
