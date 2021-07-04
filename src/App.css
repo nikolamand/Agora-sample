@@ -532,3 +532,7 @@ body {
   flex-direction: column;
   position: absolute;
 }
+
+.active-speaker{
+  color: rgb(92, 255, 47);
+}

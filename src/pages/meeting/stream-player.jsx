@@ -1,5 +1,6 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
+import { useGlobalState } from '../../utils/container'
 
 StreamPlayer.propTypes = {
   stream: PropTypes.object
@@ -11,6 +12,8 @@ export default function StreamPlayer (props) {
   const [resume, changeResume] = useState(false)
 
   const [autoplay, changeAutoplay] = useState(false)
+
+  const stateCtx = useGlobalState()
 
   const handleClick = () => {
     if (autoplay && !resume) {
@@ -76,6 +79,13 @@ export default function StreamPlayer (props) {
     }
   }, [stream, domId])
 
+  const streamUid = useRef(null)
+  useEffect(() => {
+    if (stateCtx.activeSpeaker && streamUid.current) {
+      if (streamUid.current.id === `stream-${stateCtx.activeSpeaker.uid}`) { streamUid.current.classList.add('active-speaker') } else { streamUid.current.classList.remove('active-speaker') }
+    }
+  }, [stateCtx.activeSpeaker])
+
   return (
     <div
       className={`stream-player ${autoplay ? 'autoplay' : ''}`}
@@ -93,7 +103,7 @@ export default function StreamPlayer (props) {
         </div>
       ) : null}
       {props.showUid && uid ? (
-        <div className="stream-uid">UID: {uid}</div>
+        <div className="stream-uid" id={`stream-${uid}`} ref={streamUid}>UID: {uid}</div>
       ) : null}
     </div>
   )

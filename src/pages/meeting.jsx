@@ -113,12 +113,25 @@ const MeetingPage = () => {
           mutationCtx.updateConfig({ uid })
           mutationCtx.stopLoading()
         })
+        .then(
+          () => {
+            localClient.enableVolumeIndicator()
+            localClient.on('volume-indicator', evt => {
+              evt.attr.forEach((volume, index) => {
+                const isSpeaking = volume.level >= 5
+                if (isSpeaking && !stateCtx.activeSpeaker) { mutationCtx.changeActiveSpeaker(volume) }
+                if (isSpeaking && stateCtx.activeSpeaker && volume.level > stateCtx.activeSpeaker.level) { mutationCtx.changeActiveSpeaker(volume) }
+                console.debug(`Index: ${index} UID: ${volume.uid} Level: ${volume.level}`)
+              })
+            })
+          }
+        )
         .catch((err) => {
           mutationCtx.toastError(`Media ${err.info}`)
           routerCtx.history.push('/')
         })
     }
-  }, [localClient, mutationCtx, config, routerCtx])
+  }, [localClient, mutationCtx, config, routerCtx, stateCtx.activeSpeaker])
 
   const handleClick = (name) => {
     return (evt) => {
@@ -192,11 +205,11 @@ const MeetingPage = () => {
     mutationCtx.setCurrentStream(stream)
   }
 
-  const otherStreams = useMemo(() => {
-    return stateCtx.streams.filter(
-      (it) => it.getId() !== currentStream.getId()
-    )
-  }, [stateCtx.streams, currentStream])
+  // const otherStreams = useMemo(() => {
+  //   return stateCtx.streams.filter(
+  //     (it) => it.getId() !== currentStream.getId()
+  //   )
+  // }, [stateCtx.streams, currentStream])
 
   return (
     <div className="meeting">
@@ -271,7 +284,7 @@ const MeetingPage = () => {
                       )}
                     />
                   </Tooltip>
-                  
+
                   {/* <i onClick={handleClick('profile')} className={clsx(classes.customBtn, 'show-profile')}/> */}
                 </div>
               )}

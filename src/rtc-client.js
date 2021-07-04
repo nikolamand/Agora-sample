@@ -12,6 +12,7 @@ console.log(
     '\nApp TOKEN: \n' +
     appTOKEN
 )
+AgoraRTC.Logger.setLogLevel(AgoraRTC.Logger.INFO)
 export default class RTCClient {
   constructor () {
     this._client = null
@@ -310,6 +311,10 @@ export default class RTCClient {
         }
       )
     })
+  }
+
+  enableVolumeIndicator () {
+    this._client.enableAudioVolumeIndicator()
   }
 
   publish () {

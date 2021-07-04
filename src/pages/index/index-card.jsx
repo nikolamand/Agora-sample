@@ -160,7 +160,7 @@ export default function IndexCard () {
       <a
         href="https://github.com/AgoraIO/Basic-Video-Broadcasting/tree/master/OpenLive-Web"
         className="github"
-      ></a>
+      > </a>
       <div className="role-container">
         <CustomRadio
           className={classes.radio}

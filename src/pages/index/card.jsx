@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
-import { useMediaQuery } from 'react-responsive'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Card from '@material-ui/core/Card'
@@ -96,8 +95,8 @@ export default function CardPage () {
   const setAuthentication = () => {
     const idField = document.querySelector('#App_ID')
     const tokenField = document.querySelector('#App_TOKEN')
-    window.localStorage.setItem('Sample_App_ID', idField.value)
-    window.localStorage.setItem('Sample_App_TOKEN', tokenField.value)
+    if (idField.value) { window.localStorage.setItem('Sample_App_ID', idField.value) }
+    if (tokenField.value) { window.localStorage.setItem('Sample_App_TOKEN', tokenField.value) }
     idField.value = ''
     tokenField.value = ''
     idField.placeholder = `App ID (${window.localStorage.getItem('Sample_App_ID')})`

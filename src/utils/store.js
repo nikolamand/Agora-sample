@@ -32,7 +32,8 @@ const defaultState = {
   muteVideo: true,
   muteAudio: true,
   screen: false,
-  profile: false
+  profile: false,
+  activeSpeaker: null
   // beauty: false
 }
 
@@ -139,6 +140,9 @@ const reducer = (state, action) => {
         currentStream.close()
       }
       return { ...state, currentStream: null, localStream: null, streams: [] }
+    }
+    case 'activeSpeaker': {
+      return { ...state, activeSpeaker: action.payload }
     }
     // case 'enableBeauty': {
     //   return {

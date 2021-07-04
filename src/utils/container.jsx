@@ -110,6 +110,9 @@ export const ContainerProvider = ({ children }) => {
     connectionStateChanged (evt) {
       methods.toastInfo(`${evt.curState}`)
     },
+    changeActiveSpeaker (param) {
+      dispatch({ type: 'activeSpeaker', payload: param })
+    }
     // enableBeauty(enable) {
     //   dispatch({type: 'enableBeauty', enable});
     // }
